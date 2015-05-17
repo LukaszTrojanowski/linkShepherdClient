@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AuctionProject</title>
+    
+    <script async type="application/dart" src="linkShepherd.dart"></script>
+    <script async src="packages/browser/dart.js"></script>
+    
+    <link rel="stylesheet" href="linkShepherd.css">
+  </head>
+  <body>    
+    <div id="menu_bar">
+      <div id="logo"></div>
+      <div class="menu_tab" id="hot_tab">Hot links</div>
+      <div class="menu_tab" id="newest_tab">Newest</div>
+    </div>
+    <div id="content_box">
+
+      <div id="side_menu">
+        <div id="open_menu_shadow"></div>
+        <div id="menu_content">
+          <div id="account" class="side_label">
+            <p class="tiny">You are currently logged in as:</p>
+            <p id="current_user">Some User</p>
+            <p class="tiny">This is not you?
+              <span class="important" id="log_out" role="button" tabindex="0" style="cursor: pointer;">Log Out</span>
+            </p>
+          </div>
+          <div id="login_box" class="side_label">
+            <input type="text" name="login" placeholder="Login">
+            <input type="text" name="password" placeholder="Password">
+            <button type="button" id="sign_in">Sign In</button>
+            <p class="tiny">Don't have an account? <span class="important" id="register" role="button" tabindex="0" style="cursor: pointer;">Register</span></p>
+          </div>
+          <hr>
+          <div class="side_label">Add Category</div>
+          <div class="side_label">Super category 1</div>
+          <hr>
+          <div class="side_label">Popular #tags:
+            <ol id="trendingTags">
+              <li><div class="label">#Tag123</div></li>
+              <li><div class="label">#Tag456</div></li>
+            </ol>
+          </div>
+        </div>
+        <div id="open_menu"><p>&lt &gt &lt &gt &lt &gt &lt &gt &lt &gt</p></div>
+      </div>
+
+      <div id="post_list">
+        <div id="smart_box">
+        
+        </div>
+        <div class="post">
+          <div class="title">This is a sample title</div>
+          <div class="content">This is a sample teaser </div>
+          <div class="posted_at">12-12-1992</div>
+        </div>
+        <div class="post">
+          <img src=""></img>
+          <div class="title">This is a sample title</div>
+          <div class="teaser">This is sample bla bla bla bla bla bla bla bla teaser </div>
+          
+        </div>      
+        <div class="post">
+          <img src=""></img>
+          <div class="title">This is a sample title</div>
+          <div class="teaser">This is sample teaser </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
