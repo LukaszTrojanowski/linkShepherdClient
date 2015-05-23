@@ -1,5 +1,8 @@
 import 'dart:html';
 import 'post.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/browser_client.dart';
+import 'dart:convert';
 
 Element menu_content;
 Element toggle_menu;
@@ -40,7 +43,7 @@ void init_query_slectors(){
   hot_tab = querySelector('#hot_tab');
   hot_tab.onClick.listen((e) => handleHotTabClick());
   newest_tab = querySelector('#newest_tab');
-  newest_tab.onClick.listen((e)=> handleNewestTabClick());
+  newest_tab.onClick.listen((_)=> handleNewestTabClick());
   
 }
 
@@ -58,14 +61,13 @@ void toggleSideMenu() {
 void handleHotTabClick() {
   all_tabs.classes.remove('menu_tab_selected');
   hot_tab.classes.add('menu_tab_selected');
-  
+  makeRequest('http://127.0.0.1:8080/hot');
 }
 
 void handleNewestTabClick() {
   all_tabs.classes.remove('menu_tab_selected');
   newest_tab.classes.add('menu_tab_selected');
-  print('newest tab has been clickt');
-  makeRequestNewest();
+  makeRequest('http://127.0.0.1:8080/newest');
 }
 
 void setLabelVisibility() {
@@ -83,28 +85,17 @@ void set_up_constants() {
 
 
 /* HttpRequest related functions */
-void makeRequestNewest() {
-  String path = 'http://127.0.0.1:8080/newest';
-  //var httpReq = new HttpRequest();
-  HttpRequest.getString(path)
-    .then((String newestContent){
-    post_list.appendText(newestContent);
+void makeRequest(String path) {
+  //String path = 'http://127.0.0.1:8080/newest';
+  var client = new BrowserClient();
+  client.get(path)
+    .then((response){
+    post_list.children.clear();
+    //post_list.appendText('response status: ${response.statusCode}');
+    List postsList = JSON.decode(response.body);
+    postsList.forEach((post){
+      post_list.appendHtml((new Post.fromMap(post)).toHTML());
+    });
   })
-  .catchError((Error error){
-    post_list.appendText(error.toString());
-  });
-  //httpRequest
-  //  ..open('GET', path)
-  //  ..onLoadEnd.listen((e) => contentRequestComplete(httpRequest))
-  //  ..send('');
+  .whenComplete(client.close);
 }
-
-/*contentRequestComplete(HttpRequest request) {
-  if (request.status == 200) {    
-    //print(request.responseText);
-    post_list.appendText('got a succesfull newest request');
-  } else {
-    post_list.appendText('failed to get context');
-    print('reqest for new failed');
-  }
-}*/
